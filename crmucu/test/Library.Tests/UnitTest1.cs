@@ -1,4 +1,10 @@
-﻿namespace Library.Tests;
+﻿using NUnit.Framework;
+using CrmUcu;
+using CrmUcu.Repositories;
+using System;
+using System.Linq;
+
+namespace Library.Tests;
 
 public class Tests
 {
