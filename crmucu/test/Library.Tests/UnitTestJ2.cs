@@ -33,13 +33,13 @@ namespace Library.Tests
 
             // Verificaciones
             if (cliente.Nombre != "Juan Carlos")
-                throw new Exception("❌ El nombre no se actualizó correctamente.");
+                throw new Exception(" El nombre no se actualizó correctamente.");
             if (cliente.Telefono != "099999999")
-                throw new Exception("❌ El teléfono no se actualizó correctamente.");
+                throw new Exception(" El teléfono no se actualizó correctamente.");
             if (cliente.Mail != "juan.carlos@mail.com")
-                throw new Exception("❌ El mail no se actualizó correctamente.");
+                throw new Exception(" El mail no se actualizó correctamente.");
 
-            Console.WriteLine("✅ ModificarCliente_DeberiaActualizarDatosCorrectamente pasó correctamente.");
+            Console.WriteLine(" ModificarCliente_DeberiaActualizarDatosCorrectamente pasó correctamente.");
         }
 
         public void ModificarCliente_DeberiaLanzarErrorSiIdNoExiste()
@@ -56,11 +56,11 @@ namespace Library.Tests
                 if (clienteInexistente == null)
                     throw new InvalidOperationException("No existe un cliente con ese ID.");
                 
-                throw new Exception("❌ No se lanzó la excepción esperada para ID inexistente.");
+                throw new Exception("No se lanzó la excepción esperada para ID inexistente.");
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine("✅ ModificarCliente_DeberiaLanzarErrorSiIdNoExiste pasó correctamente.");
+                Console.WriteLine(" ModificarCliente_DeberiaLanzarErrorSiIdNoExiste pasó correctamente.");
             }
         }
 
@@ -84,11 +84,11 @@ namespace Library.Tests
                 if (mailDuplicado)
                     throw new InvalidOperationException("Ya existe un cliente con ese correo electrónico.");
 
-                throw new Exception("❌ No se lanzó la excepción esperada por correo duplicado.");
+                throw new Exception(" No se lanzó la excepción esperada por correo duplicado.");
             }
             catch (InvalidOperationException)
             {
-                Console.WriteLine("✅ ModificarCliente_DeberiaLanzarErrorSiCorreoDuplicado pasó correctamente.");
+                Console.WriteLine(" ModificarCliente_DeberiaLanzarErrorSiCorreoDuplicado pasó correctamente.");
             }
         }
     }

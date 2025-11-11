@@ -30,9 +30,9 @@ namespace Library.Tests
                                  .ToList();
 
             if (resultados.Count != 1)
-                throw new Exception("❌ No se encontró correctamente el cliente por nombre.");
+                throw new Exception("No se encontró correctamente el cliente por nombre.");
 
-            Console.WriteLine("✅ BuscarCliente_PorNombre_DeberiaEncontrarCorrectamente pasó correctamente.");
+            Console.WriteLine(" BuscarCliente_PorNombre_DeberiaEncontrarCorrectamente pasó correctamente.");
         }
 
         public void BuscarCliente_PorApellido_DeberiaEncontrarCorrectamente()
@@ -49,9 +49,9 @@ namespace Library.Tests
                                  .ToList();
 
             if (resultados.Count != 1)
-                throw new Exception("❌ No se encontró correctamente el cliente por apellido.");
+                throw new Exception(" No se encontró correctamente el cliente por apellido.");
 
-            Console.WriteLine("✅ BuscarCliente_PorApellido_DeberiaEncontrarCorrectamente pasó correctamente.");
+            Console.WriteLine(" BuscarCliente_PorApellido_DeberiaEncontrarCorrectamente pasó correctamente.");
         }
 
         public void BuscarCliente_PorTelefono_DeberiaEncontrarCorrectamente()
@@ -68,9 +68,9 @@ namespace Library.Tests
                                  .ToList();
 
             if (resultados.Count != 1)
-                throw new Exception("❌ No se encontró correctamente el cliente por teléfono.");
+                throw new Exception(" No se encontró correctamente el cliente por teléfono.");
 
-            Console.WriteLine("✅ BuscarCliente_PorTelefono_DeberiaEncontrarCorrectamente pasó correctamente.");
+            Console.WriteLine(" BuscarCliente_PorTelefono_DeberiaEncontrarCorrectamente pasó correctamente.");
         }
 
         public void BuscarCliente_PorCorreo_DeberiaEncontrarCorrectamente()
@@ -87,9 +87,9 @@ namespace Library.Tests
                                  .ToList();
 
             if (resultados.Count != 1)
-                throw new Exception("❌ No se encontró correctamente el cliente por correo.");
+                throw new Exception(" No se encontró correctamente el cliente por correo.");
 
-            Console.WriteLine("✅ BuscarCliente_PorCorreo_DeberiaEncontrarCorrectamente pasó correctamente.");
+            Console.WriteLine(" BuscarCliente_PorCorreo_DeberiaEncontrarCorrectamente pasó correctamente.");
         }
     }
 }
