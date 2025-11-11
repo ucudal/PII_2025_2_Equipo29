@@ -44,6 +44,7 @@ Cotizaciones ---▷ Venta (dependencia)
 4. Composición: El SistemaCRM está compuesto por los repositorios.
 5. Agregación: Un ejemplo claro es que puedo agregar etiquetas al cliente.
 6. Dependencia: Las ventas depende de antes haber enviado una cotización.
+7. Lsp. Vendedores y administradores reemplazan a usuario.
 
 #### Clases
 * Persona {Abstracta}
