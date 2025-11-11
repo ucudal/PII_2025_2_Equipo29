@@ -14,6 +14,7 @@ namespace CrmUcu.Models.Interacciones
         public Venta() : base()
         {
             Tipo = TipoInteraccion.Venta;
+        }
 
         public Venta(Cliente cliente, Vendedor Vendedor, string producto, float monto, string tema = "Venta generada")
             : this()
