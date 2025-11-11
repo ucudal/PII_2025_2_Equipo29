@@ -20,7 +20,9 @@ namespace CrmUcu.Models.Enums
         Llamada,
         Reunion,
         Mensaje,
-        CorreoElectronico
+        Mail,
+        Cotizacion,
+        Venta
     }
 
     public enum EstadoCotizacion

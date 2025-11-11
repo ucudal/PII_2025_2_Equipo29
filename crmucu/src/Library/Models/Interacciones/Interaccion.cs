@@ -11,12 +11,11 @@ namespace CrmUcu.Models.Interacciones
         public List<Nota> Notas { get; set;}
         public TipoInteraccion Tipo { get;set; }
         public Cliente Cliente { get; set; } = null!;
-        public Usuario Usuario { get; set; } = null!;
+        public Vendedor Vendedor { get; set; } = null!;
 
         public Interaccion()
         {
-            Fecha = DateTime.Now;
-        }
+            Fecha = DateTime.}
 
         public void AgregarNota(string contenido, Usuario autor)
         {
