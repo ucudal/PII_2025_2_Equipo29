@@ -1,3 +1,4 @@
+
 using CrmUcu.Models.Enums;
 using CrmUcu.Models.Personas;
 
@@ -11,7 +12,7 @@ namespace CrmUcu.Models.Interacciones
         public List<Nota> Notas { get; set;}
         public TipoInteraccion Tipo { get;set; }
         public Cliente Cliente { get; set; } = null!;
-        public Usuario Usuario { get; set; } = null!;
+        public Vendedor Vendedor { get; set; } = null!;
 
         public Interaccion()
         {
@@ -48,3 +49,4 @@ namespace CrmUcu.Models.Interacciones
         public DateTime FechaCreacion { get; set; }
     }
 }
+
