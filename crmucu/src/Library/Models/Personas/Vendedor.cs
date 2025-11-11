@@ -3,7 +3,6 @@ namespace CrmUcu.Models.Personas
 {
     public class Vendedor : Usuario
     {
-        public decimal ComisionPorcentaje { get; set; }
         public List<Cliente> Clientes { get; set; } = new();
 
         public Vendedor() : base() { }
@@ -12,7 +11,6 @@ namespace CrmUcu.Models.Personas
                        string telefono, string nombreUsuario, string password, decimal comision)
             : base(id, nombre, apellido, mail, telefono, nombreUsuario, password)
         {
-            ComisionPorcentaje = comision;
         }
 
         public override bool Autenticar()
