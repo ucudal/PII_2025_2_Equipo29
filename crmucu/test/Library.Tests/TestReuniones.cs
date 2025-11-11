@@ -31,14 +31,14 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Constructor_DebeInicializarTipoYEstado()
+        public void Constructoro()
         {
             Assert.That(_reunion.Tipo, Is.EqualTo(TipoInteraccion.Reunion));
             Assert.That(_reunion.Estado, Is.EqualTo(EstadoReunion.Agendada));
         }
 
         [Test]
-        public void AgregarParticipante_DebeAgregarSiNoExiste()
+        public void AgregarParticipante()
         {
             _reunion.AgregarParticipante(_persona1);
             Assert.That(_reunion.Participantes, Does.Contain(_persona1));
@@ -49,21 +49,21 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void MarcarComoCompletada_DebeCambiarEstado()
+        public void MarcarComoCompletada()
         {
             _reunion.MarcarComoCompletada();
             Assert.That(_reunion.Estado, Is.EqualTo(EstadoReunion.Realizada));
         }
 
         [Test]
-        public void Cancelar_DebeCambiarEstado()
+        public void Cancelar()
         {
             _reunion.Cancelar();
             Assert.That(_reunion.Estado, Is.EqualTo(EstadoReunion.Cancelada));
         }
 
         [Test]
-        public void Propiedades_DebenSerAsignables()
+        public void Propiedades()
         {
             Assert.That(_reunion.Ubicacion, Is.EqualTo("Sala 1"));
             Assert.That(_reunion.DuracionMinutos, Is.EqualTo(60));

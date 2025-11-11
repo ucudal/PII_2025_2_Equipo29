@@ -18,7 +18,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Constructor_DebeAsignarPropiedades()
+        public void Constructor()
         {
             Assert.That(_etiqueta1.Nombre, Is.EqualTo("VIP"));
             Assert.That(_etiqueta1.Color, Is.EqualTo("Rojo"));
@@ -27,7 +27,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Equals_DebeDevolverTrueSiMismoId()
+        public void EqualsTrue()
         {
             var etiquetaCopia = new Etiqueta("VIP") { Id = 1 };
             _etiqueta1.Id = 1;
@@ -36,7 +36,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Equals_DebeDevolverFalseSiIdDistinto()
+        public void EqualsFalse()
         {
             _etiqueta1.Id = 1;
             _etiqueta2.Id = 2;
@@ -45,7 +45,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ToString_DebeDevolverFormatoCorrecto()
+        public void ToString()
         {
             var texto = _etiqueta1.ToString();
             Assert.That(texto, Does.Contain("[VIP]"));
@@ -53,7 +53,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ConstructorVacio_DebeInicializarNombreVacio()
+        public void ConstructorVacio()
         {
             var etiquetaVacia = new Etiqueta();
             Assert.That(etiquetaVacia.Nombre, Is.EqualTo(string.Empty));

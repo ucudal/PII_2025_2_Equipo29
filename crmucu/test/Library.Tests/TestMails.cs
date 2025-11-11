@@ -23,21 +23,21 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Constructor_DebeInicializarTipoYLeido()
+        public void Constructor()
         {
             Assert.That(_mail.Tipo, Is.EqualTo(TipoInteraccion.CorreoElectronico));
             Assert.That(_mail.Leido, Is.False);
         }
 
         [Test]
-        public void MarcarComoLeido_DebeCambiarLeidoATrue()
+        public void MarcarComoLeido()
         {
             _mail.MarcarComoLeido();
             Assert.That(_mail.Leido, Is.True);
         }
 
         [Test]
-        public void Propiedades_DebenSerAsignables()
+        public void Propiedadess()
         {
             Assert.That(_mail.EsEntrante, Is.True);
             Assert.That(_mail.Asunto, Is.EqualTo("Asunto de prueba"));

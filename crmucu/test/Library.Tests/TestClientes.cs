@@ -35,7 +35,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Edad_DebeCalcularCorrectamente()
+        public void Edad()
         {
             _cliente.FechaNacimiento = new DateTime(1990, 1, 1);
             var edadEsperada = DateTime.Today.Year - 1990;
@@ -46,7 +46,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void EsCumpleAnios_DebeDevolverTrueSoloEnCumple()
+        public void EsCumpleAnios_()
         {
             _cliente.FechaNacimiento = DateTime.Today.AddYears(-30);
             Assert.That(_cliente.EsCumpleAnios(), Is.True);
@@ -56,7 +56,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void AgregarEtiqueta_DebeAgregarSiNoExiste()
+        public void AgregarEtiqueta()
         {
             _cliente.AgregarEtiqueta(_etiqueta1);
             Assert.That(_cliente.Etiquetas, Does.Contain(_etiqueta1));
@@ -67,7 +67,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void RemoverEtiqueta_DebeEliminarEtiqueta()
+        public void RemoverEtiqueta()
         {
             _cliente.AgregarEtiqueta(_etiqueta1);
             _cliente.RemoverEtiqueta(_etiqueta1);
@@ -75,7 +75,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void TieneEtiqueta_DebeVerificarPorNombre()
+        public void TieneEtiqueta()
         {
             _cliente.AgregarEtiqueta(_etiqueta1);
             _cliente.AgregarEtiqueta(_etiqueta2);

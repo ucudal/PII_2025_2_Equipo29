@@ -57,13 +57,13 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Inicializacion_DebeTenerTipoLlamada()
+        public void Inicializacion()
         {
             Assert.That(_llamada.Tipo, Is.EqualTo(TipoInteraccion.Llamada));
         }
 
         [Test]
-        public void FueContestada_DebeDevolverValorCorrecto()
+        public void FueContestada()
         {
             Assert.That(_llamada.FueContestada(), Is.True);
 
@@ -72,7 +72,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Propiedades_DebenSerAsignables()
+        public void Propiedades()
         {
             Assert.That(_llamada.EsEntrante, Is.True);
             Assert.That(_llamada.DuracionSegundos, Is.EqualTo(120));
@@ -80,7 +80,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ProgramarDevolucion_PuedeInvocarse()
+        public void ProgramarDevolucion()
         {
             // Solo comprobamos que se pueda llamar sin errores
             Assert.DoesNotThrow(() => _llamada.ProgramarDevolucion(DateTime.Now.AddDays(1)));

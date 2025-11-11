@@ -31,7 +31,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ConstructorParametrizado_DebeAsignarPropiedades()
+        public void ConstructorParametrizado()
         {
             Assert.That(_usuario.Id, Is.EqualTo(1));
             Assert.That(_usuario.Nombre, Is.EqualTo("Ana"));
@@ -44,20 +44,20 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void EstaActivo_DebeDevolverTrueSiActivo()
+        public void EstaActivo()
         {
             Assert.That(_usuario.EstaActivo(), Is.True);
         }
 
         [Test]
-        public void Suspender_DebeCambiarEstado()
+        public void Suspender()
         {
             _usuario.Suspender();
             Assert.That(_usuario.Estado, Is.EqualTo(EstadoUsuario.Suspendido));
         }
 
         [Test]
-        public void Activar_DebeCambiarEstado()
+        public void Activar()
         {
             _usuario.Suspender();
             _usuario.Activar();
@@ -65,14 +65,14 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Eliminar_DebeCambiarEstado()
+        public void Eliminar()
         {
             _usuario.Eliminar();
             Assert.That(_usuario.Estado, Is.EqualTo(EstadoUsuario.Eliminado));
         }
 
         [Test]
-        public void Autenticar_DebeDevolverTrue()
+        public void Autenticar()
         {
             Assert.That(_usuario.Autenticar(), Is.True);
         }

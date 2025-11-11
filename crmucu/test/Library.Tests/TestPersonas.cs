@@ -24,7 +24,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ConstructorParametrizado_DebeAsignarPropiedades()
+        public void ConstructorParametrizado()
         {
             Assert.That(_persona.Id, Is.EqualTo(1));
             Assert.That(_persona.Nombre, Is.EqualTo("Juan"));
@@ -34,13 +34,13 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void NombreCompleto_DebeConcatenarNombreYApellido()
+        public void NombreCompleto()
         {
             Assert.That(_persona.NombreCompleto, Is.EqualTo("Juan Perez"));
         }
 
         [Test]
-        public void ConstructorVacio_DebePermitirInstanciacionDerivada()
+        public void ConstructorVacioa()
         {
             var personaVacia = new PersonaTestParaTest();
             Assert.That(personaVacia, Is.Not.Null);

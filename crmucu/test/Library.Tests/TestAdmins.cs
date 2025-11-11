@@ -30,13 +30,13 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Autenticar_DebeDevolverEstaActivo()
+        public void Autenticar()
         {
             Assert.That(_admin.Autenticar(), Is.EqualTo(_admin.EstaActivo()));
         }
 
         [Test]
-        public void CrearVendedor_DebeAgregarAVendedoresCreados()
+        public void CrearVendedor()
         {
             var vendedor = _admin.CrearVendedor("Juan", "Perez", "mail@dominio.com", "123456",
                                                 "juanp", "password", 10);
@@ -47,7 +47,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void CrearAdministrador_DebeAgregarAUsuariosCreados()
+        public void CrearAdministrador()
         {
             var nuevoAdmin = _admin.CrearAdministrador("Ana", "Silva", "ana@mail.com", "123", "ana", "pass");
 
@@ -56,7 +56,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void CantidadUsuariosCreados_DebeSerCorrecta()
+        public void CantidadUsuariosCreados()
         {
             _admin.CrearVendedor("Juan", "Perez", "mail@dominio.com", "123456", "juanp", "pass");
             _admin.CrearAdministrador("Ana", "Silva", "ana@mail.com", "123", "ana", "pass");
@@ -66,7 +66,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ToString_DebeContenerNombreYUsuariosCreados()
+        public void ContenerNombreUUsuariosCreados()
         {
             _admin.CrearVendedor("Juan", "Perez", "mail@dominio.com", "123456", "juanp", "pass");
 

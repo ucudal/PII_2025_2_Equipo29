@@ -23,7 +23,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ConstructorParametrizado_DebeAsignarPropiedades()
+        public void ConstructorParametrizado()
         {
             Assert.That(_vendedor.Id, Is.EqualTo(1));
             Assert.That(_vendedor.Nombre, Is.EqualTo("Juan"));
@@ -37,13 +37,13 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void Autenticar_DebeDevolverEstaActivo()
+        public void Autenticar()
         {
             Assert.That(_vendedor.Autenticar(), Is.EqualTo(_vendedor.EstaActivo()));
         }
 
         [Test]
-        public void AsignarCliente_DebeAgregarClienteSiNoExiste()
+        public void AsignarCliente()
         {
             _vendedor.AsignarCliente(_cliente1);
 
@@ -56,7 +56,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void RemoverCliente_DebeEliminarCliente()
+        public void RemoverCliente()
         {
             _vendedor.AsignarCliente(_cliente1);
             _vendedor.RemoverCliente(_cliente1);
@@ -66,7 +66,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void ObtenerClientes_DebeDevolverListaCorrecta()
+        public void ObtenerClientes()
         {
             _vendedor.AsignarCliente(_cliente1);
             _vendedor.AsignarCliente(_cliente2);
@@ -78,7 +78,7 @@ namespace CrmUcu.Tests
         }
 
         [Test]
-        public void CantidadClientes_DebeDevolverNumeroCorrecto()
+        public void CantidadClientes()
         {
             _vendedor.AsignarCliente(_cliente1);
             _vendedor.AsignarCliente(_cliente2);
