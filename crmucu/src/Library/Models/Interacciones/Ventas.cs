@@ -15,11 +15,11 @@ namespace CrmUcu.Models.Interacciones
         {
             Tipo = TipoInteraccion.Venta;
 
-        public Venta(Cliente cliente, Usuario usuario, string producto, float monto, string tema = "Venta generada")
+        public Venta(Cliente cliente, Vendedor Vendedor, string producto, float monto, string tema = "Venta generada")
             : this()
         {
             Cliente = cliente;
-            Usuario = usuario;
+            Vendedor = Vendedor;
             Producto = producto;
             Monto = monto;
             Tema = tema;
@@ -28,13 +28,13 @@ namespace CrmUcu.Models.Interacciones
         public void ConfirmarVenta()
         {
             Confirmada = true;
-            AgregarNota($"Venta confirmada por el Cliente llamado {Usuario.NombreCompleto}, el dia {DateTime.Now:dd/MM/yyyy}.", Usuario);
+            AgregarNota($"Venta confirmada por el Cliente llamado {Cliente.NombreCompleto}, el dia {DateTime.Now:dd/MM/yyyy}.", Vendedor);
         }
 
         public void CancelarVenta()
         {
             Confirmada = false;
-            AgregarNota($"Esta venta fue cancelada.", Usuario);
+            AgregarNota($"Esta venta fue cancelada.", Vendedor);
         }
 
         public override string ToString()
