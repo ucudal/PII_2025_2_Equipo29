@@ -13,7 +13,7 @@ namespace CrmUcu.Models.Personas
         {
         }
 
-        public override bool Autenticar()
+        public bool Autenticar()
         {
             //login de los admins, tendría que ser mas polenta que los normales.
             return EstaActivo();
