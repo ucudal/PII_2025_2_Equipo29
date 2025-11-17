@@ -41,12 +41,5 @@ namespace CrmUcu.Models.Interacciones
         }
     }
 
-    public class Nota
-    {
-        public int Id { get; set; }
-        public string Contenido { get; set; } = string.Empty;
-        public Usuario Autor { get; set; } = null!;
-        public DateTime FechaCreacion { get; set; }
-    }
-}
+
 
