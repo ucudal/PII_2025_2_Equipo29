@@ -1,6 +1,6 @@
 using CrmUcu.Models.Personas;
 
-namespace CrmUcu.Repositorios
+namespace CrmUcu.Repositories
 {
     public class RepositorioCliente
     {

@@ -1,5 +1,5 @@
 using CrmUcu.Models.Enums;
-using CrmUcu.Repositorios;
+using CrmUcu.Repositories;
 namespace CrmUcu.Models.Personas
 {
     public class Vendedor : Usuario
