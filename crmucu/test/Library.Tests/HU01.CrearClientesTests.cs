@@ -8,10 +8,10 @@ namespace Library.Tests
     public class HU01_CrearClienteTests
     {
         [Test]  
-        public void CrearCliente_ConInformacionBasica_DeberiaCrearClienteCorrectamente()
+        public void CrearCliente()
         {
             // Arrange
-            var repoCliente = RepositorioCliente.ObtenerInstancia();  // ← Cambio aquí
+            var repoCliente = RepositorioCliente.ObtenerInstancia();  
             var vendedor = new Vendedor(1, "nacho@gmail.com", "Nacho", "Silva", "098xxxyyy", "Tachoviendo", "123nacho");
             
             string nombre = "Florencia";
@@ -22,12 +22,13 @@ namespace Library.Tests
             // Act
             vendedor.CrearCliente(nombre, apellido, mail, celular);
             var cliente = repoCliente._clientes[0];
-            // Assert - SIN el signo =
+            
+            // Assert 
             Assert.That(cliente, Is.Not.Null);
-            Assert.That(cliente.Nombre, Is.EqualTo(nombre));  // ← Sin =
-            Assert.That(cliente.Apellido, Is.EqualTo(apellido));  // ← Sin =
-            Assert.That(cliente.Mail, Is.EqualTo(mail));  // ← Sin =
-            Assert.That(cliente.Telefono, Is.EqualTo(celular));  // ← Sin =
+            Assert.That(cliente.Nombre, Is.EqualTo(nombre));  
+            Assert.That(cliente.Apellido, Is.EqualTo(apellido));  
+            Assert.That(cliente.Mail, Is.EqualTo(mail));  
+            Assert.That(cliente.Telefono, Is.EqualTo(celular));  
         }
     }
 }
