@@ -29,9 +29,6 @@ namespace CrmUcu.Models.Personas
         {
             return EstaActivo();
         }
-
-        // ======================================================
-        //               Registrar Clientes
         public bool RegistrarCliente(string nombre, string apellido, string telefono, string mail)
         {
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido))
@@ -61,9 +58,6 @@ namespace CrmUcu.Models.Personas
             Console.WriteLine($"Cliente {nuevo.NombreCompleto} registrado y asignado a {this.NombreCompleto}.");
             return true;
         }
-
-        // ======================================================
-        //   Buscar Clientes
         public List<Cliente> BuscarClientes(string termino)
         {
             if (string.IsNullOrWhiteSpace(termino))
@@ -80,9 +74,6 @@ namespace CrmUcu.Models.Personas
                 )
                 .ToList();
         }
-
-        // ======================================================
-        //  Modificar Clientes
         public bool ModificarCliente(int id, string nuevoNombre, string nuevoApellido, string nuevoTelefono, string nuevoMail)
         {
             var cliente = repoClientes.ObtenerTodos().FirstOrDefault(c => c.Id == id);
@@ -104,9 +95,7 @@ namespace CrmUcu.Models.Personas
             Console.WriteLine($"Cliente {cliente.NombreCompleto} modificado correctamente.");
             return true;
         }
-
-        // ======================================================
-        // Asignar y Remover Clientes
+        
         public void AsignarCliente(Cliente cliente)
         {
             if (cliente == null)
@@ -131,9 +120,7 @@ namespace CrmUcu.Models.Personas
                 Console.WriteLine($"Cliente {cliente.NombreCompleto} removido del vendedor {this.NombreCompleto}");
             }
         }
-
-        // ======================================================
-
+        
         public List<Cliente> ObtenerClientes()
         {
             return Clientes.ToList();

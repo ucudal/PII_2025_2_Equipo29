@@ -11,9 +11,14 @@ namespace CrmUcu.Repositories
         private int siguienteId = 1;
 
         private static RepositorioClientes? instancia;
-        
-        private RepositorioClientes() { }
 
+        private RepositorioClientes()
+        {
+            
+        }
+        
+        
+        
         public static RepositorioClientes ObtenerInstancia()
         {
             if (instancia == null)
@@ -22,6 +27,27 @@ namespace CrmUcu.Repositories
             }
             return instancia;
         }
+        // editar clientes
+        
+        public void Modificar(int id, string? nombre, string? apellido, string? telefono, string? mail)
+        {
+            var cliente = clientes.FirstOrDefault(c => c.Id == id)
+                          ?? throw new KeyNotFoundException("El cliente no existe.");
+
+            if (!string.IsNullOrWhiteSpace(nombre))
+                cliente.Nombre = nombre;
+
+            if (!string.IsNullOrWhiteSpace(apellido))
+                cliente.Apellido = apellido;
+
+            if (!string.IsNullOrWhiteSpace(telefono))
+                cliente.Telefono = telefono;
+
+            if (!string.IsNullOrWhiteSpace(mail))
+                cliente.Mail = mail;
+        }
+        
+        // agregar y eliminar
         public override void Agregar(Cliente cliente)
         {
             if (cliente.Id == 0)
@@ -31,16 +57,12 @@ namespace CrmUcu.Repositories
 
             if (clientes.Any(c => c.Id == cliente.Id))
             {
-                throw new InvalidOperationException($"Ya existe un cliente con ID {cliente.Id}");
+                throw new InvalidOperationException($"Ya existe un cliente con la ID {cliente.Id}");
             }
 
             clientes.Add(cliente);
         }
-
-        public override List<Cliente> ObtenerTodos()
-        {
-            return clientes.ToList();
-        }
+        
         public override void Eliminar(int id)
         {
             var cliente = clientes.FirstOrDefault(c => c.Id == id);
@@ -49,22 +71,12 @@ namespace CrmUcu.Repositories
                 clientes.Remove(cliente);
             }
         }
-
-        public override void Editar(Cliente cliente)
-        {
-            var existente = clientes.FirstOrDefault(c => c.Id == cliente.Id);
-            if (existente != null)
-            {
-                int index = clientes.IndexOf(existente);
-                clientes[index] = cliente;
-            }
-        }
-
-        public override List<Cliente> Buscar(Criterio filtro)
+        // presentar lista de clientes
+        
+        public override List<Cliente> ObtenerTodos()
         {
             return clientes.ToList();
-        }
-
+        }  
         public int ObtenerTotal()
         {
             return clientes.Count;

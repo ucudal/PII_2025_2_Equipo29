@@ -41,7 +41,7 @@ namespace CrmUcu.Models.Interacciones
         public override string ToString()
         {
             string estado = Confirmada ?  "Confirmado" : "Cancelado";
-            return ($"{Fecha:dd/MM/yyyy} | {Producto} | {Monto:F2} | {estado} | Cliente {Cliente.NombreCompleto}");
+            return ($"{Fecha:dd/MM/yyyy} | {Producto} | {Monto} | {estado} | Cliente {Cliente.NombreCompleto}");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace CrmUcu.Models.Interacciones
 
         public Mail()
         {
-            Tipo = TipoInteraccion.CorreoElectronico;
+            Tipo = TipoInteraccion.Mail;
             Leido = false;
         }
 
