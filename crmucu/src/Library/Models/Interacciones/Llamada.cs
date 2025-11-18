@@ -8,6 +8,8 @@ namespace CrmUcu.Models.Interacciones
         public bool EsEntrante { get; set; }
         public bool Contestada { get; set; }    // en el UML figura como el fueAtendida(
                                                     // estaria faltando el duracion
+        public string? Notas { get; set; } //Notas agregadas el "? " significa que para el usuario no es obligatoria la nota
+
         public Llamada()
         {
             Tipo = TipoInteraccion.Llamada;
