@@ -1,62 +1,47 @@
 using CrmUcu.Models.Enums;
+using System;
+using System.Collections.Generic;
+using CrmUcu.Models.Interaccion;
 
 namespace CrmUcu.Models.Personas
 {
     public class Cliente : Persona
     {
         public List<Etiqueta> Etiquetas { get; set; }  
-        public Vendedor? Vendedor { get; set; }
+        public int IdVendedor { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public Genero? Genero { get; set; }
-        //como tuvimos varios dramas con dependencias circulares, pusimos object para que no saltara error.       
         public List<object> Interacciones { get; set; } 
-        public List<object> Ventas { get; set; }
-        public List<object> Cotizaciones { get; set; }
-
-        public Cliente() : base() { }
-
-        public Cliente(int id, string nombre, string apellido, string mail, string telefono)
-            : base(id, nombre, apellido, mail, telefono)
+        public List<Venta> Ventas { get; set; }
+        public List<Cotizacion> Cotizaciones { get; set; }
+        
+        public Cliente() : base() 
         {
+            Etiquetas = new List<Etiqueta>();
+            Interacciones = new List<object>();
+            Ventas = new List<Venta>();
+            Cotizaciones = new List<Cotizacion>();
         }
-
-        public int Edad
+        
+        public Cliente(int id, string mail, string nombre, string apellido, string telefono, int idVendedor) 
+            : base(id, mail, nombre, apellido, telefono)
         {
-            get
-            {
-                if (!FechaNacimiento.HasValue) return 0;
-                var hoy = DateTime.Today;
-                var edad = hoy.Year - FechaNacimiento.Value.Year;
-                if (FechaNacimiento.Value.Date > hoy.AddYears(-edad)) edad--;
-                return edad;
-            }
+            IdVendedor = idVendedor;   
+            Etiquetas = new List<Etiqueta>();
+            Interacciones = new List<object>();
+            Ventas = new List<Venta>();
+            Cotizaciones = new List<Cotizacion>();
+ 
         }
-
-        public bool EsCumpleAnios() 
+        
+        public string MostrarInfo()
         {
-            if (!FechaNacimiento.HasValue) return false;
-            var hoy = DateTime.Today;
-            return FechaNacimiento.Value.Month == hoy.Month &&
-                   FechaNacimiento.Value.Day == hoy.Day;
+            return $"1. Nombre: {Nombre}\n" +
+                   $"2. Apellido: {Apellido}\n" +
+                   $"3. Mail: {Mail}\n" +
+                   $"4. Teléfono: {Telefono}\n" +
+                   $"5. Fecha de Nacimiento: {FechaNacimiento?.ToString("dd/MM/yyyy") ?? "No especificada"}\n" +
+                   $"6. Género: {Genero?.ToString() ?? "No especificado"}";
         }
-
-        public void AgregarEtiqueta(Etiqueta etiqueta)
-        {
-            if (!Etiquetas.Contains(etiqueta))
-            {
-                Etiquetas.Add(etiqueta);
-            }
-        }
-
-        public void RemoverEtiqueta(Etiqueta etiqueta)
-        {
-            Etiquetas.Remove(etiqueta);
-        }
-
-        public bool TieneEtiqueta(string nombreEtiqueta)
-        {
-            return Etiquetas.Any(e => e.Nombre.Equals(nombreEtiqueta, StringComparison.OrdinalIgnoreCase));
-        }
-
-    }
+    }
 }

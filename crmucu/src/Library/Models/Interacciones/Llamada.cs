@@ -1,6 +1,6 @@
 using CrmUcu.Models.Enums;
 
-namespace CrmUcu.Models.Interacciones
+namespace CrmUcu.Models.Interaccion
 {
     public class Llamada : Interaccion
     {
@@ -8,7 +8,7 @@ namespace CrmUcu.Models.Interacciones
         public int DuracionSegundos { get; set; }
         public bool Contestada { get; set; }
 
-        public Llamada()
+        public Llamada(int id, int idCliente, DateTime fecha, string descripcion ): base(id, idCliente, fecha, descripcion)
         {
             Tipo = TipoInteraccion.Llamada;
         }

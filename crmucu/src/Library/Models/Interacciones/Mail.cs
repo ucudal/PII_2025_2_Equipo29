@@ -1,6 +1,7 @@
 using CrmUcu.Models.Enums;
 
-namespace CrmUcu.Models.Interacciones
+
+namespace CrmUcu.Models.Interaccion
 {
     public class Mail : Interaccion
     {
@@ -9,7 +10,7 @@ namespace CrmUcu.Models.Interacciones
         public List<string> Destinatarios { get; set; } = new();
         public bool Leido { get; set; }
 
-        public Mail()
+        public Mail(int id, int idCliente, DateTime fecha, string descripcion) : base (id, idCliente, fecha, descripcion)
         {
             Tipo = TipoInteraccion.Mail;
             Leido = false;

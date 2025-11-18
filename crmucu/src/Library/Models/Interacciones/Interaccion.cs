@@ -1,52 +1,24 @@
-
+using System;
 using CrmUcu.Models.Enums;
-using CrmUcu.Models.Personas;
-
-namespace CrmUcu.Models.Interacciones
+namespace CrmUcu.Models.Interaccion
 {
     public abstract class Interaccion
     {
         public int Id { get; set; }
+        public int IdCliente { get; set; }
         public DateTime Fecha { get; set; }
-        public string Tema { get; set; }
-        public List<Nota> Notas { get; set;}
-        public TipoInteraccion Tipo { get;set; }
-        public Cliente Cliente { get; set; } = null!;
-        public Vendedor Vendedor { get; set; } = null!;
-
-        public Interaccion()
+        public string Descripcion { get; set; }
+        public TipoInteraccion Tipo {get; set;}
+        
+        protected Interaccion() { }
+        
+        protected Interaccion(int id, int idCliente, DateTime fecha, string descripcion)
         {
-            Fecha = DateTime.Now;
+            Id = id;
+            IdCliente = idCliente;
+            Fecha = fecha;
+            Descripcion = descripcion;
         }
-
-        public void AgregarNota(string contenido, Usuario autor)
-        {
-            var nota = new Nota
-            {
-                Contenido = contenido,
-                Autor = autor,
-                FechaCreacion = DateTime.Now
-            };
-            Notas.Add(nota);
-        }
-
-        public void EliminarNota(Nota nota)
-        {
-            Notas.Remove(nota);
-        }
-
-        public string ObtenerResumen()
-        {
-            return $"{Tipo} - {Fecha:dd/MM/yyyy} - {Tema} - Cliente: {Cliente.NombreCompleto}";
-        }
-    }
-
-    public class Nota
-    {
-        public int Id { get; set; }
-        public string Contenido { get; set; } = string.Empty;
-        public Usuario Autor { get; set; } = null!;
-        public DateTime FechaCreacion { get; set; }
+        
     }
 }
-

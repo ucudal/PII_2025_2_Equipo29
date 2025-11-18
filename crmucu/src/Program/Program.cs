@@ -1,9 +1,18 @@
-﻿namespace Program;
+﻿using CrmUcu.Models.Personas;
+using CrmUcu.Models.Enums;
+using CrmUcu.Repositories;
+using CrmUcu.Models.Interaccion;
+using System;
 
-class Program
+namespace CrmUcu
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello, World!");
+        static void Main(string[] args)
+        {
+           
+
+
+        }
     }
 }

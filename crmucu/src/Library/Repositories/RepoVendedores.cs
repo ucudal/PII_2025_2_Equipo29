@@ -1,77 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using CrmUcu.Models.Personas;
 
 namespace CrmUcu.Repositories
 {
-    public class RepositorioVendedores : Repositorio<Vendedor>
+    public class RepositorioVendedor
     {
-        private List<Vendedor> vendedores = new();
-        private int siguienteId = 1;
+        private static RepositorioVendedor? _instancia;
+        private static readonly object _lock = new object();
+        public List<Vendedor> _vendedores;
+        private int _proximoId;
 
-        private static RepositorioVendedores? instancia;
-
-        private RepositorioVendedores() { }
-
-        public static RepositorioVendedores ObtenerInstancia()
+        private RepositorioVendedor()
         {
-            if (instancia == null)
-            {
-                instancia = new RepositorioVendedores();
-            }
-            return instancia;
-        }
-
-        // desde aquí sobreescribimos los métodos abstractos
-
-        public override void Agregar(Vendedor vendedor)
-        {
-            if (vendedor.Id == 0)
-            {
-                vendedor.Id = siguienteId++;
-            }
-
-            if (vendedores.Any(v => v.Id == vendedor.Id))
-            {
-                throw new InvalidOperationException($"Ya existe un vendedor con ID {vendedor.Id}");
-            }
-
-            vendedores.Add(vendedor);
-        }
-
-        public override List<Vendedor> ObtenerTodos()
-        {
-            return vendedores.ToList();
-        }
-
-        public override void Eliminar(int id)
-        {
-            var vendedor = vendedores.FirstOrDefault(v => v.Id == id);
-            if (vendedor != null)
-            {
-                vendedores.Remove(vendedor);
-            }
-        }
-
-        public override void Editar(Vendedor vendedor)
-        {
-            var existente = vendedores.FirstOrDefault(v => v.Id == vendedor.Id);
-            if (existente != null)
-            {
-                int index = vendedores.IndexOf(existente);
-                vendedores[index] = vendedor;
-            }
-        }
-
-        public override List<Vendedor> Buscar(Criterio filtro)
-        {
-            return vendedores.ToList();
+            _vendedores = new List<Vendedor>();
+            _proximoId = 0;
         }
         
-        public int ObtenerTotal()
+
+        //Implementar el patrón singleton
+        public static RepositorioVendedor ObtenerInstancia()
         {
-            return vendedores.Count;
+            if (_instancia == null)
+            {
+                lock (_lock)
+                {
+                    if (_instancia == null)
+                    {
+                        _instancia = new RepositorioVendedor();
+                    }
+                }
+            }
+            return _instancia;
         }
+
+    
+
     }
 }

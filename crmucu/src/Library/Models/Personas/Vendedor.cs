@@ -1,134 +1,131 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using CrmUcu.Models.Enums;
 using CrmUcu.Repositories;
-
 namespace CrmUcu.Models.Personas
 {
     public class Vendedor : Usuario
     {
-        public decimal ComisionPorcentaje { get; set; }
-        public List<Cliente> Clientes { get; set; } = new();
+        public List<int>? Clientes { get; set; } = new();
 
-        private readonly RepositorioClientes repoClientes;
 
-        public Vendedor() : base()
+        public Vendedor() : base() { }
+
+        public Vendedor(int id, string nombre, string apellido, string mail, string telefono, string nombreUsuario, string password ) : base(id, nombre, apellido, mail, telefono, nombreUsuario, password)
         {
-            repoClientes = RepositorioClientes.ObtenerInstancia();
         }
 
-        public Vendedor(int id, string nombre, string apellido, string mail,
-                       string telefono, string nombreUsuario, string password, decimal comision)
-            : base(id, nombre, apellido, mail, telefono, nombreUsuario, password)
-        {
-            ComisionPorcentaje = comision;
-            repoClientes = RepositorioClientes.ObtenerInstancia();
+        //Vendedor usa la instancia singleton del repoClientes para que esta última se encargue de crear y agregar al repo al nuevo cliente. 
+        public void CrearCliente(string nombre, string apellido, string mail, string telefono){
+            
+            var repo = RepositorioCliente.ObtenerInstancia();
+            repo.CrearCliente(nombre, apellido, mail, telefono, this.Id);
         }
 
-        public override bool Autenticar()
-        {
-            return EstaActivo();
-        }
-        public bool RegistrarCliente(string nombre, string apellido, string telefono, string mail)
-        {
-            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido))
-                throw new ArgumentException("El nombre y apellido son obligatorios.");
+        public void ModificarCliente(int idCliente){
 
-            if (string.IsNullOrWhiteSpace(mail) || !mail.Contains("@"))
-                throw new ArgumentException("Correo electrónico no válido.");
+            var repo = RepositorioCliente.ObtenerInstancia();
+            var cliente = repo.BuscarPorId(idCliente);
+            
+            //qué desea modificar el vendedor?
+            
+            cliente.MostrarInfo();
+            Console.Write("Ingrese su opción: ");
+    
+            string opcion = Console.ReadLine();
 
-            bool yaExiste = repoClientes.ObtenerTodos()
-                .Any(c => c.Mail.Equals(mail, StringComparison.OrdinalIgnoreCase));
-
-            if (yaExiste)
-                throw new InvalidOperationException("Ya existe un cliente con ese correo electrónico.");
-
-            Cliente nuevo = new Cliente(0, nombre, apellido, mail, telefono)
+            switch(opcion)
             {
-                Etiquetas = new List<Etiqueta>(),
-                Interacciones = new List<object>(),
-                Ventas = new List<object>(),
-                Cotizaciones = new List<object>()
-            };
-
-            repoClientes.Agregar(nuevo);
-            Clientes.Add(nuevo);
-            nuevo.Vendedor = this;
-
-            Console.WriteLine($"Cliente {nuevo.NombreCompleto} registrado y asignado a {this.NombreCompleto}.");
-            return true;
-        }
-        public List<Cliente> BuscarClientes(string termino)
-        {
-            if (string.IsNullOrWhiteSpace(termino))
-                return new List<Cliente>();
-
-            termino = termino.Trim().ToLower();
-
-            return repoClientes.ObtenerTodos()
-                .Where(c =>
-                    (!string.IsNullOrEmpty(c.Nombre) && c.Nombre.ToLower().Contains(termino)) ||
-                    (!string.IsNullOrEmpty(c.Apellido) && c.Apellido.ToLower().Contains(termino)) ||
-                    (!string.IsNullOrEmpty(c.Telefono) && c.Telefono.Contains(termino)) ||
-                    (!string.IsNullOrEmpty(c.Mail) && c.Mail.ToLower().Contains(termino))
-                )
-                .ToList();
-        }
-        public bool ModificarCliente(int id, string nuevoNombre, string nuevoApellido, string nuevoTelefono, string nuevoMail)
-        {
-            var cliente = repoClientes.ObtenerTodos().FirstOrDefault(c => c.Id == id);
-
-            if (cliente == null)
-                throw new InvalidOperationException("No existe un cliente con ese ID.");
-
-            bool mailDuplicado = repoClientes.ObtenerTodos()
-                .Any(c => c.Mail.Equals(nuevoMail, StringComparison.OrdinalIgnoreCase) && c.Id != id);
-
-            if (mailDuplicado)
-                throw new InvalidOperationException("Ya existe un cliente con ese correo electrónico.");
-
-            cliente.Nombre = nuevoNombre;
-            cliente.Apellido = nuevoApellido;
-            cliente.Telefono = nuevoTelefono;
-            cliente.Mail = nuevoMail;
-
-            Console.WriteLine($"Cliente {cliente.NombreCompleto} modificado correctamente.");
-            return true;
-        }
-        
-        public void AsignarCliente(Cliente cliente)
-        {
-            if (cliente == null)
-                throw new ArgumentNullException(nameof(cliente));
-
-            if (!Clientes.Contains(cliente))
-            {
-                Clientes.Add(cliente);
-                cliente.Vendedor = this;
-                Console.WriteLine($"Cliente {cliente.NombreCompleto} asignado a vendedor {this.NombreCompleto}");
-            }
-        }
-
-        public void RemoverCliente(Cliente cliente)
-        {
-            if (cliente == null)
-                throw new ArgumentNullException(nameof(cliente));
-
-            if (Clientes.Remove(cliente))
-            {
-                cliente.Vendedor = null;
-                Console.WriteLine($"Cliente {cliente.NombreCompleto} removido del vendedor {this.NombreCompleto}");
-            }
-        }
-        
-        public List<Cliente> ObtenerClientes()
-        {
-            return Clientes.ToList();
-        }
-
-        public int CantidadClientes()
-        {
-            return Clientes.Count;
-        }
+                case "1":
+                    Console.Write("Ingrese el nuevo nombre: ");
+                    cliente.Nombre = Console.ReadLine();
+                    break;
+                    
+                case "2":
+                    Console.Write("Ingrese el nuevo apellido: ");
+                    cliente.Apellido = Console.ReadLine();
+                    break;
+                    
+                case "3":
+                    Console.Write("Ingrese el nuevo mail: ");
+                    cliente.Mail = Console.ReadLine();
+                    break;
+                    
+                case "4":
+                    Console.Write("Ingrese el nuevo teléfono: ");
+                    cliente.Telefono = Console.ReadLine();
+                    break;
+                    
+                case "5":
+                    Console.Write("Ingrese la nueva fecha de nacimiento (dd/MM/yyyy): ");
+                    string fechaInput = Console.ReadLine();
+                    if (DateTime.TryParse(fechaInput, out DateTime fecha))
+                    {
+                        cliente.FechaNacimiento = fecha;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Formato de fecha inválido");
+                        return;
+                    }
+                    break;
+            
+                case "6":
+                    Console.WriteLine("Seleccione el género:");
+                    Console.WriteLine("1. Masculino");
+                    Console.WriteLine("2. Femenino");
+                    Console.WriteLine("3. Otro");
+                    Console.Write("Opción: ");
+                    string generoOpcion = Console.ReadLine();
+                    
+                    cliente.Genero = generoOpcion switch
+                    {
+                        "1" => Enums.Genero.Masculino,
+                        "2" => Enums.Genero.Femenino,
+                        "3" => Enums.Genero.Otro,
+                        _ => cliente.Genero  // Mantiene el valor actual si es inválido
+                    };
+                    
+                    if (generoOpcion != "1" && generoOpcion != "2" && generoOpcion != "3")
+                    {
+                        Console.WriteLine("Opción de género inválida");
+                        return;
+                    }
+                    break;
+                    
+                default:
+                    Console.WriteLine("Opción inválida");
+                    return;
     }
+
+                // Guardar cambios
+                Console.WriteLine("Cliente modificado exitosamente");
+
+        }
+
+
+        //Eliminar un cliente 
+        public string EliminarCliente(int id){
+            var repoClientes = RepositorioCliente.ObtenerInstancia();
+            var cliente = repoClientes.BuscarPorId(id);
+            repoClientes.EliminarCliente(id);
+            return "Cliente eliminado" + cliente.Nombre;
+        }
+
+
+        //Buscar Cliente 
+        public int buscarCliente(){
+            return 1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }

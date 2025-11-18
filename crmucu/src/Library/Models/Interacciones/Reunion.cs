@@ -1,24 +1,38 @@
 using CrmUcu.Models.Enums;
 using CrmUcu.Models.Personas;
 
-namespace CrmUcu.Models.Interacciones
+namespace CrmUcu.Models.Interaccion
 {
     public class Reunion : Interaccion
     {
-        public string Ubicacion { get; set; } 
-        public int DuracionMinutos { get; set; }
-        public List<Persona> Participantes { get; set; }
-        public EstadoReunion Estado { get; set; }
+        public string Ubicacion{ get; set;}
+        public int DuracionMinutos{ get; set;}
+        public EstadoReunion Estado{ get; set;}
+        public List<Persona> Participantes {get;set;}
 
-        public Reunion()
+
+
+         public Reunion(int id, int idCliente, DateTime fecha, string descripcion) : base (id, idCliente, fecha, descripcion)
         {
             Tipo = TipoInteraccion.Reunion;
             Estado = EstadoReunion.Agendada;
+            Participantes = new List<Persona>();
         }
 
-        public void AgregarParticipante(Persona persona)
+
+        public Reunion(int id, int idCliente, DateTime fecha, string descripcion, string ubicacion, int duracion) : base (id, idCliente, fecha, descripcion)
+
         {
-            if (!Participantes.Contains(persona))
+            Tipo = TipoInteraccion.Reunion;
+            Estado = EstadoReunion.Agendada;
+            Participantes = new List<Persona>();
+            Ubicacion = ubicacion; 
+            DuracionMinutos = duracion; 
+        }
+
+        public void AgregarParticipante(Persona persona) // Aca solo agrega si la persona existe y no esta agregada ya. pd: pueden sacarlo si quieren
+        {
+            if (persona != null && !Participantes.Contains(persona))
             {
                 Participantes.Add(persona);
             }
@@ -26,14 +40,18 @@ namespace CrmUcu.Models.Interacciones
 
         public void MarcarComoCompletada()
         {
-            Estado = EstadoReunion.Realizada;
+            if (Estado != EstadoReunion.Cancelada)
+            {
+                Estado = EstadoReunion.Realizada;
+            }
         }
-
 
         public void Cancelar()
         {
-            Estado = EstadoReunion.Cancelada;
+            if (Estado != EstadoReunion.Realizada)
+            {
+                Estado = EstadoReunion.Cancelada;
+            }
         }
-
     }
 }

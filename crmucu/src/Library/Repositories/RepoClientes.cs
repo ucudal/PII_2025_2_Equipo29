@@ -1,85 +1,73 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using CrmUcu.Models.Personas;
 
 namespace CrmUcu.Repositories
 {
-    public class RepositorioClientes : Repositorio<Cliente>
+    public class RepositorioCliente
     {
-        private List<Cliente> clientes = new();
-        private int siguienteId = 1;
+        private static RepositorioCliente? _instancia;
+        private static readonly object _lock = new object();
+        public List<Cliente> _clientes;
+        private int _proximoId;
 
-        private static RepositorioClientes? instancia;
-
-        private RepositorioClientes()
+        private RepositorioCliente()
         {
-            
+            _clientes = new List<Cliente>();
+            _proximoId = 0;
         }
         
+
+        //Implementar el patrón singleton
         
-        
-        public static RepositorioClientes ObtenerInstancia()
+
+        public static RepositorioCliente ObtenerInstancia()
         {
-            if (instancia == null)
+            if (_instancia == null)
             {
-                instancia = new RepositorioClientes();
+                lock (_lock)
+                {
+                    if (_instancia == null)
+                    {
+                        _instancia = new RepositorioCliente();
+                    }
+                }
             }
-            return instancia;
+            return _instancia;
         }
-        // editar clientes
-        
-        public void Modificar(int id, string? nombre, string? apellido, string? telefono, string? mail)
+
+    
+
+        public Cliente CrearCliente(string mail, string nombre, string apellido, string telefono, int idVendedor)
         {
-            var cliente = clientes.FirstOrDefault(c => c.Id == id)
-                          ?? throw new KeyNotFoundException("El cliente no existe.");
-
-            if (!string.IsNullOrWhiteSpace(nombre))
-                cliente.Nombre = nombre;
-
-            if (!string.IsNullOrWhiteSpace(apellido))
-                cliente.Apellido = apellido;
-
-            if (!string.IsNullOrWhiteSpace(telefono))
-                cliente.Telefono = telefono;
-
-            if (!string.IsNullOrWhiteSpace(mail))
-                cliente.Mail = mail;
+            var cliente = new Cliente(_proximoId, mail, nombre, apellido, telefono, idVendedor);
+            _clientes.Add(cliente);
+            Console.WriteLine("cliente creado!");
+            cliente.MostrarInfo();
+            _proximoId++;
+            return cliente;
         }
-        
-        // agregar y eliminar
-        public override void Agregar(Cliente cliente)
+
+        public Cliente BuscarPorId(int id)
         {
-            if (cliente.Id == 0)
-            {
-                cliente.Id = siguienteId++;
+            for (int i=0; i<_clientes.Count(); i++){
+                if(_clientes[i].Id == id){
+                    return _clientes[i];
+                }
             }
-
-            if (clientes.Any(c => c.Id == cliente.Id))
-            {
-                throw new InvalidOperationException($"Ya existe un cliente con la ID {cliente.Id}");
-            }
-
-            clientes.Add(cliente);
+            return null;
         }
         
-        public override void Eliminar(int id)
-        {
-            var cliente = clientes.FirstOrDefault(c => c.Id == id);
-            if (cliente != null)
-            {
-                clientes.Remove(cliente);
+        public void EliminarCliente(int id){
+            for (int i=0; i<_clientes.Count(); i++){
+                if(_clientes[i].Id == id){
+                     _clientes.Remove(_clientes[i]);
+                }
             }
         }
-        // presentar lista de clientes
-        
-        public override List<Cliente> ObtenerTodos()
+
+
+        public List<Cliente> ObtenerTodos()
         {
-            return clientes.ToList();
-        }  
-        public int ObtenerTotal()
-        {
-            return clientes.Count;
+            return _clientes;
         }
     }
 }

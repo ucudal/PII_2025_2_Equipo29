@@ -1,23 +1,22 @@
 using CrmUcu.Models.Personas;
-
 namespace CrmUcu.Repositories
 {
-    public class RepositorioAdmin
+    public class RepositorioEtiqueta
     {
-        private static RepositorioAdmin? _instancia;
+        private static RepositorioEtiqueta? _instancia;
         private static readonly object _lock = new object();
-        public List<Admin> _admins;
+        public List<Etiqueta> _Etiquetas;
         private int _proximoId;
 
-        private RepositorioAdmin()
+        private RepositorioEtiqueta()
         {
-            _admins = new List<Admin>();
+            _Etiquetas = new List<Etiqueta>();
             _proximoId = 0;
         }
         
 
         //Implementar el patrón singleton
-        public static RepositorioAdmin ObtenerInstancia()
+        public static RepositorioEtiqueta ObtenerInstancia()
         {
             if (_instancia == null)
             {
@@ -25,7 +24,7 @@ namespace CrmUcu.Repositories
                 {
                     if (_instancia == null)
                     {
-                        _instancia = new RepositorioAdmin();
+                        _instancia = new RepositorioEtiqueta();
                     }
                 }
             }
