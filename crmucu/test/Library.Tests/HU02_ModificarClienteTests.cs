@@ -5,10 +5,10 @@ using CrmUcu.Repositories;
 namespace Library.Tests
 {
     [TestFixture]  
-    public class HU01_CrearClienteTests
+    public class HU02_ModificarClienteTests
     {
         [Test]  
-        public void CrearCliente_ConInformacionBasica_DeberiaCrearClienteCorrectamente()
+        public void modificarCliente()
         {
             // Arrange
             var repoCliente = RepositorioCliente.ObtenerInstancia();  

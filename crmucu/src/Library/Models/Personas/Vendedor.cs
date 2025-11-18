@@ -111,6 +111,12 @@ namespace CrmUcu.Models.Personas
         }
 
 
+        //Buscar Cliente 
+        public int buscarCliente(){
+            return 1;
+        }
+
+
 
 
 

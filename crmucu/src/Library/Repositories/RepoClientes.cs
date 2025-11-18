@@ -34,6 +34,8 @@ namespace CrmUcu.Repositories
             return _instancia;
         }
 
+    
+
         public Cliente CrearCliente(string mail, string nombre, string apellido, string telefono, int idVendedor)
         {
             var cliente = new Cliente(_proximoId, mail, nombre, apellido, telefono, idVendedor);
