@@ -5,20 +5,21 @@ namespace CrmUcu.Models.Interacciones
 {
     public class Reunion : Interaccion
     {
-        public string Ubicacion { get; set; } 
-        public int DuracionMinutos { get; set; }
-        public List<Persona> Participantes { get; set; }
-        public EstadoReunion Estado { get; set; }
+        public string Ubicacion{ get; set;}
+        public int DuracionMinutos{ get; set;}
+        public EstadoReunion Estado{ get; set;}
+        public List<Persona> Participantes {get;set;}
 
         public Reunion()
         {
             Tipo = TipoInteraccion.Reunion;
             Estado = EstadoReunion.Agendada;
+            Participantes = new List<Persona>();
         }
 
         public void AgregarParticipante(Persona persona)
         {
-            if (!Participantes.Contains(persona))
+            if (persona != null && !Participantes.Contains(persona))
             {
                 Participantes.Add(persona);
             }
@@ -26,14 +27,18 @@ namespace CrmUcu.Models.Interacciones
 
         public void MarcarComoCompletada()
         {
-            Estado = EstadoReunion.Realizada;
+            if (Estado != EstadoReunion.Cancelada)
+            {
+                Estado = EstadoReunion.Realizada;
+            }
         }
-
 
         public void Cancelar()
         {
-            Estado = EstadoReunion.Cancelada;
+            if (Estado != EstadoReunion.Realizada)
+            {
+                Estado = EstadoReunion.Cancelada;
+            }
         }
-
     }
 }
