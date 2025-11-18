@@ -40,3 +40,6 @@ namespace CrmUcu.Models.Enums
         Cancelada
     }
 }
+
+// nota mental de para q sirve el enums: DEFINE LAS COSAS 
+
