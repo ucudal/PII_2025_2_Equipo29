@@ -16,7 +16,7 @@ namespace CrmUcu.Models.Interaccion
             Leido = false;
         }
 
-        public void MarcRepositorioVendedor{
+        public void MarcarLeido(){
             Leido = true;
         }
 
