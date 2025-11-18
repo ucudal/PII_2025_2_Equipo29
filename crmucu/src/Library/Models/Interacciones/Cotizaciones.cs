@@ -34,7 +34,7 @@ namespace CrmUcu.Models.Interacciones
             }
             Estado = EstadoCotizacion.Aceptada;
 
-            return Venta(this.Cliente, this.Vendedor, this.Producto, this.Monto, this.Tema)
+            return Venta(this.Cliente, this.Vendedor, this.Producto, this.Monto, this.Tema);
         }
     }
 
