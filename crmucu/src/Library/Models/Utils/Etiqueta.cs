@@ -17,15 +17,6 @@ namespace CrmUcu.Models.Personas
             Descripcion = descripcion;
         }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is Etiqueta etiqueta && Id == etiqueta.Id;
-        }
 
-
-        public override string ToString()
-        {
-            return $"[{Nombre}] {Descripcion}";
-        }
     }
 }

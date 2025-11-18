@@ -3,15 +3,17 @@ using CrmUcu.Models.Interaccion;
 
 namespace CrmUcu.Models.Interaccion
 {
-    public class Cotizacion : Interaccion
+    public class Venta : Interaccion
     {
+        public string Producto { get; set; }
         public decimal Monto { get; set; }
         
-        public Cotizacion() : base() { }
+        public Venta() : base() { }
         
-        public Cotizacion(int id, int idCliente, DateTime fecha, string descripcion, decimal monto) 
+        public Venta(int id, int idCliente, DateTime fecha, string descripcion, string producto, decimal monto) 
             : base(id, idCliente, fecha, descripcion)
         {
+            Producto = producto;
             Monto = monto;
         }
         
