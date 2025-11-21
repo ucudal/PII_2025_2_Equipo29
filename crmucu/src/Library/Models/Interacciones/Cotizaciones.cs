@@ -1,4 +1,5 @@
 using CrmUcu.Models.Enums;
+using CrmUcu.Models.Personas;
 
 namespace CrmUcu.Models.Interacciones
 {
@@ -35,6 +36,11 @@ namespace CrmUcu.Models.Interacciones
             Estado = EstadoCotizacion.Aceptada;
 
             return Venta(this.Cliente, this.Vendedor, this.Producto, this.Monto, this.Tema);
+        }
+
+        private Venta Venta(Cliente cliente, Vendedor vendedor, string producto, float monto, string tema)
+        {
+            throw new NotImplementedException();
         }
     }
 
