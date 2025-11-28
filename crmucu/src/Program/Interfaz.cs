@@ -12,7 +12,6 @@ namespace CrmUcu.Core
         private readonly RepositorioAdmin _repoAdmins;
         private readonly RepositorioVendedor _repoVendedores;
         private readonly RepositorioCliente _repoClientes;
-        private readonly RepositorioInteraccion _repoInteracciones;
         private readonly RepositorioEtiqueta _repoEtiquetas;
 
         private Stack<string> _historialAcciones;
@@ -22,13 +21,12 @@ namespace CrmUcu.Core
             _repoAdmins = RepositorioAdmin.ObtenerInstancia();
             _repoVendedores = RepositorioVendedor.ObtenerInstancia();
             _repoClientes = RepositorioCliente.ObtenerInstancia();
-            //_repoInteracciones = RepositorioInteraccion.ObtenerInstancia();
             _repoEtiquetas = RepositorioEtiqueta.ObtenerInstancia();
             _historialAcciones = new Stack<string>();
         }
 
         // Login
-        public Usuario IniciarSesion(string username, string password)
+        public Usuario? IniciarSesion(string username, string password)
         {
             _historialAcciones.Push("Login");
 
@@ -42,10 +40,15 @@ namespace CrmUcu.Core
         }
 
         // Clientes
-        public Vendedor CrearCliente(string mail, string nombre, string apellido, string telefono, DateTime fechaNacimiento, Genero? genero, int idVendedor)
+        public bool CrearClienteComoVendedor(int idVendedor, string nombre, string apellido, string mail, string telefono)
         {
             _historialAcciones.Push("CrearCliente");
-            return _repoClientes.CrearCliente(mail, nombre, apellido, telefono, fechaNacimiento, genero, idVendedor);
+
+            var vendedor = _repoVendedores._vendedores.FirstOrDefault(v => v.Id == idVendedor);
+            if (vendedor == null) return false;
+
+            vendedor.CrearCliente(nombre, apellido, mail, telefono);
+            return true;
         }
 
         public Cliente BuscarClientePorId(int id)
@@ -54,10 +57,15 @@ namespace CrmUcu.Core
             return _repoClientes.BuscarPorId(id);
         }
 
-        public void ModificarCliente(int id, string nombre, string apellido, string mail, string telefono, DateTime? fechaNacimiento, string? genero)
+        public bool ModificarClienteComoVendedor(int idVendedor, int idCliente)
         {
             _historialAcciones.Push("ModificarCliente");
-            _repoVendedores.ModificarCliente(id, nombre, apellido, mail, telefono, fechaNacimiento, genero);
+
+            var vendedor = _repoVendedores._vendedores.FirstOrDefault(v => v.Id == idVendedor);
+            if (vendedor == null) return false;
+
+            vendedor.ModificarCliente(idCliente);
+            return true;
         }
 
         public void EliminarCliente(int id)
@@ -72,93 +80,20 @@ namespace CrmUcu.Core
             return _repoClientes.ObtenerTodos();
         }
 
-        public List<Cliente> ObtenerClientesPorVendedor(int idVendedor)
-        {
-            _historialAcciones.Push("MostrarMisClientes");
-            return _repoClientes.ObtenerPorVendedor(idVendedor);
-        }
-
-        public void ReasignarCliente(int idCliente, int nuevoIdVendedor)
-        {
-            _historialAcciones.Push("ReasignarCliente");
-            _repoClientes.ReasignarCliente(idCliente, nuevoIdVendedor);
-        }
-
-        public List<Cliente> ObtenerClientesInactivos(int idVendedor)
-        {
-            _historialAcciones.Push("VerInactivos");
-            return _repoClientes.ObtenerInactivos(idVendedor);
-        }
-
-        public List<Cliente> ObtenerContactosViejos(int idVendedor, DateTime fechaLimite)
-        {
-            _historialAcciones.Push("VerContactosViejos");
-            return _repoClientes.ObtenerSinInteraccionDesde(idVendedor, fechaLimite);
-        }
-
-        // Interacciones
-        public void RegistrarInteraccion(int idCliente, TipoInteraccion tipo, string descripcion)
-        {
-            _historialAcciones.Push("RegistrarInteraccion");
-            _repoInteracciones.Registrar(idCliente, tipo, descripcion);
-        }
-
-        public List<Interaccion> VerInteracciones(int idCliente)
-        {
-            _historialAcciones.Push("VerInteracciones");
-            return _repoInteracciones.ObtenerPorCliente(idCliente);
-        }
-
-        public decimal CalcularVentasPeriodo(int idVendedor, DateTime inicio, DateTime fin)
-        {
-            _historialAcciones.Push("CalcularVentasPeriodo");
-            return _repoInteracciones.CalcularVentas(idVendedor, inicio, fin);
-        }
-
-        // Etiquetas
-        public Etiqueta CrearEtiqueta(string nombre)
-        {
-            _historialAcciones.Push("CrearEtiqueta");
-            return _repoEtiquetas.CrearEtiqueta(nombre);
-        }
-
-        public void AsignarEtiqueta(int idCliente, int idEtiqueta)
-        {
-            _historialAcciones.Push("AsignarEtiqueta");
-            _repoEtiquetas.AsignarEtiqueta(idCliente, idEtiqueta);
-        }
-
         // Usuarios
-        public Admin CrearAdmin(string nombre, string apellido, string mail, string telefono, string nombreUsuario, string password)
-        {
-            _historialAcciones.Push("CrearAdmin");
-            return _repoAdmins.CrearAdmin(nombre, apellido, mail, telefono, nombreUsuario, password);
-        }
-
-        public Vendedor CrearVendedor(string nombre, string apellido, string mail, string telefono, string nombreUsuario, string password)
-        {
-            _historialAcciones.Push("CrearVendedor");
-            return _repoVendedores.CrearVendedor(nombre, apellido, mail, telefono, nombreUsuario, password);
-        }
-
-        public Usuario BuscarUsuarioPorId(int id, TipoUsuario tipo)
-        {
-            _historialAcciones.Push("BuscarUsuario");
-
-            return tipo switch
-            {
-                TipoUsuario.Admin => _repoAdmins._admins.FirstOrDefault(a => a.Id == id),
-                TipoUsuario.Vendedor => _repoVendedores._vendedores.FirstOrDefault(v => v.Id == id),
-                _ => null
-            };
-        }
-
         public bool SuspenderUsuario(int id)
         {
             _historialAcciones.Push("SuspenderUsuario");
 
-            Usuario usuario = _repoVendedores._vendedores.FirstOrDefault(v => v.Id == id)
-                           ?? _repoAdmins._admins.FirstOrDefault(a => a.Id == id);
+            Usuario usuario = null;
+
+            var vendedor = _repoVendedores._vendedores.FirstOrDefault(v => v.Id == id);
+            if (vendedor != null) usuario = vendedor;
+            else
+            {
+                var admin = _repoAdmins._admins.FirstOrDefault(a => a.Id == id);
+                if (admin != null) usuario = admin;
+            }
 
             if (usuario != null)
             {
@@ -200,6 +135,13 @@ namespace CrmUcu.Core
         {
             _historialAcciones.Push("ObtenerAdmins");
             return _repoAdmins._admins;
+        }
+
+        // Etiquetas (solo repositorio, aún sin métodos definidos)
+        public List<Etiqueta> ObtenerTodasLasEtiquetas()
+        {
+            _historialAcciones.Push("ObtenerEtiquetas");
+            return _repoEtiquetas._Etiquetas;
         }
 
         // Navegación
