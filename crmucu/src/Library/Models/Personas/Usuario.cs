@@ -24,7 +24,5 @@ namespace CrmUcu.Models.Personas
         {
             return true;
         }
-
-        
     }
 }

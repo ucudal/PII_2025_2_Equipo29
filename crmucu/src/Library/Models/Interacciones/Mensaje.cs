@@ -15,11 +15,6 @@ namespace CrmUcu.Models.Interaccion
             Tipo = TipoInteraccion.Mensaje;
             Leido = false;
         }
-
-        public void MarcRepositorioVendedor{
-            Leido = true;
-        }
-
-
+        
     }
 }
