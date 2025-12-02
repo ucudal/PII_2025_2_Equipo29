@@ -19,7 +19,5 @@ namespace CrmUcu.Models.Interaccion
         public void MarcRepositorioVendedor{
             Leido = true;
         }
-
-
     }
 }
