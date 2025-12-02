@@ -136,6 +136,13 @@ namespace CrmUcu.Core
             _historialAcciones.Push("ObtenerAdmins");
             return _repoAdmins._admins;
         }
+        
+        public bool CrearEtiqueta(string nombre)
+        {
+            _historialAcciones.Push("CrearEtiqueta");
+            return _repoEtiquetas.AgregarEtiqueta(nombre);
+        }
+
 
         // Etiquetas (solo repositorio, aún sin métodos definidos)
         public List<Etiqueta> ObtenerTodasLasEtiquetas()

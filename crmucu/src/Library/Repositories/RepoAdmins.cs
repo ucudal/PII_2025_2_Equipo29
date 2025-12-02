@@ -12,10 +12,23 @@ namespace CrmUcu.Repositories
         private RepositorioAdmin()
         {
             _admins = new List<Admin>();
-            _proximoId = 0;
+            _proximoId = 1;
+            
+            var adminDePrueba = new Admin(
+                id: _proximoId,
+                nombre: "El Papá",
+                apellido: "El Abuelo",
+                mail: "ElPadreDeTodos@gmail.com",
+                telefono: "00000001",
+                nombreUsuario: "Adán",
+                password: "ChiapasFilosofo"
+            );
+
+            _admins.Add(adminDePrueba);
+            _proximoId++;
         }
         
-
+        
         //Implementar el patrón singleton
         public static RepositorioAdmin ObtenerInstancia()
         {
@@ -31,8 +44,5 @@ namespace CrmUcu.Repositories
             }
             return _instancia;
         }
-
-    
-
     }
 }

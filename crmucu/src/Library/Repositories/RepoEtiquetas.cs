@@ -8,12 +8,13 @@ namespace CrmUcu.Repositories
         public List<Etiqueta> _Etiquetas;
         private int _proximoId;
 
-        private RepositorioEtiqueta()
+        public bool AgregarEtiqueta(string nombre)
         {
-            _Etiquetas = new List<Etiqueta>();
-            _proximoId = 0;
+            var nueva = new Etiqueta("Cliente Homosexual", nombre);
+            _Etiquetas.Add(nueva);
+            _proximoId++;
+            return true;
         }
-        
 
         //Implementar el patrón singleton
         public static RepositorioEtiqueta ObtenerInstancia()

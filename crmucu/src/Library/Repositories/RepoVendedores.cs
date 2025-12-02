@@ -13,7 +13,21 @@ namespace CrmUcu.Repositories
         private RepositorioVendedor()
         {
             _vendedores = new List<Vendedor>();
-            _proximoId = 0;
+            _proximoId = 1;
+            
+            var vendedorPorMeme = new Vendedor(
+                id: _proximoId,
+                nombre: "LaFokin",
+                apellido: "Cabra",
+                mail: "ElMehoVendedol@gmail.com",
+                telefono: "123236234",
+                nombreUsuario: "Sergio Ramirez",
+                password: "ComeAndShakeYourBodyBabyDoThatConga"
+            );
+
+            _vendedores.Add(vendedorPorMeme);
+            _proximoId++;
+
         }
         
 
