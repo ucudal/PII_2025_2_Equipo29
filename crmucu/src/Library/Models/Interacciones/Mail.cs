@@ -20,7 +20,5 @@ namespace CrmUcu.Models.Interaccion
         {
             Leido = true;
         }
-
-
     }
 }

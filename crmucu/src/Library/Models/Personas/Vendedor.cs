@@ -9,7 +9,8 @@ namespace CrmUcu.Models.Personas
 
         public Vendedor() : base() { }
 
-        public Vendedor(int id, string nombre, string apellido, string mail, string telefono, string nombreUsuario, string password ) : base(id, nombre, apellido, mail, telefono, nombreUsuario, password)
+        public Vendedor(int id, string nombre, string apellido, string mail, string telefono, string nombreUsuario, string password ) :
+            base(id, nombre, apellido, mail, telefono, nombreUsuario, password)
         {
         }
 

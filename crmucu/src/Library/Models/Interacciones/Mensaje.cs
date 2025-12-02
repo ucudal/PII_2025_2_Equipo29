@@ -15,9 +15,6 @@ namespace CrmUcu.Models.Interaccion
             Tipo = TipoInteraccion.Mensaje;
             Leido = false;
         }
-
-        public void MarcarLeido(){
-            Leido = true;
-        }
+        
     }
 }
